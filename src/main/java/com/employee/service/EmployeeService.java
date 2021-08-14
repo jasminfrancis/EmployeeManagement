@@ -5,6 +5,7 @@ package com.employee.service;
 import javax.servlet.http.HttpServletRequest;
 
 import com.employee.Constant.JsonData;
+import com.employee.Modal.EmployeeModal;
 
 
 
@@ -15,7 +16,7 @@ public interface EmployeeService {
 
 	
 
-	public JsonData createEmployee(int id,String empName, int salary, int empNo, String department,String joningData,
+	public JsonData createEmployee(EmployeeModal employee,
 			HttpServletRequest request);
 
 	//public List<EmployeeModal> employeeList();

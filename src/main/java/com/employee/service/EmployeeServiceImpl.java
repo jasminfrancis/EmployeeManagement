@@ -4,12 +4,14 @@ package com.employee.service;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
-import javax.transaction.Transactional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import com.employee.Constant.JsonData;
 import com.employee.Constant.ResponseCode;
@@ -21,17 +23,19 @@ import com.employee.dao.EmployeeDao;
 @Service("employeeService")
 
 public class EmployeeServiceImpl implements EmployeeService {
+	private static final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
+	
 	@Autowired
 	private EmployeeDao employeeDao;
 
-	public JsonData createEmployee(int id,String empName, int salary, int empNo, String department,String joningDate,
+	public JsonData createEmployee(EmployeeModal employee,
 			HttpServletRequest request) {
+		log.info("############# Create Employee Data Data {}", employee);
 		JsonData jsonData = new JsonData();
-		EmployeeModal empModal=new EmployeeModal();
 		boolean duplicate=false;
-			EmployeeModal checkExistence=employeeDao.checkExistence(empNo);
+			EmployeeModal checkExistence=employeeDao.checkExistence(employee.getEmpNo());
 			if(checkExistence!=null) {
-				if(checkExistence.getId()!=id) {
+				if(checkExistence.getId()!=employee.getId()) {
 					duplicate=true;
 				}
 			}
@@ -39,13 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			jsonData.setResponseCode(ResponseCode.DUPLICATE);
 			jsonData.setResponseMessege(ResponseMessge.DUPLICATE);
 		}else {
-			empModal.setEmpName(empName);
-			empModal.setDepartment(department);
-			empModal.setSalary(salary);
-			empModal.setJoiningDate(joningDate);
-			empModal.setEmpNo(empNo);
-			empModal.setId(id);
-			employeeDao.createEmployee(empModal);
+			employeeDao.createEmployee(employee);
 			jsonData.setResponseCode(ResponseCode.SUCESS_MESSAGE);
 			jsonData.setResponseMessege(ResponseMessge.SUCESS_MESSAGE);
 		}
