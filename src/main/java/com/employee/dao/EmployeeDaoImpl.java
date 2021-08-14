@@ -34,7 +34,7 @@ public class EmployeeDaoImpl  implements EmployeeDao {
 	public void createEmployee(EmployeeModal empModal) {
 		 if (empModal.getId() > 0) {
 			 
-			 System.out.println("id=="+empModal.getId());
+			 System.out.println("id=ss="+empModal.getId());
 		        // update
 				
 			 String sql = "UPDATE tbl_employee SET empno=?, empname=?, salary=?, " +
