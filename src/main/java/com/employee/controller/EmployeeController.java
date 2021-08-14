@@ -64,10 +64,7 @@ public class EmployeeController {
     public @ResponseBody
     String getTime(@RequestBody EmployeeModal employee, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-//      System.out.println("name"+employee.getEmpName());
-//      System.out.println("no"+employee.getEmpNo());
-//      System.out.println("department"+employee.getDepartment());
-//      System.out.println("department"+employee.getSalary());
+
      
       String encodedResponse = "";
       ModelAndView mv=new ModelAndView("redirect:/");

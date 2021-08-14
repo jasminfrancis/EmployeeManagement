@@ -60,16 +60,21 @@
 
 <table id="tblEmployee" border="1" style="border-collapse:collapse">
             <thead>
+            
                 <tr>
                     <th>Employee No</th>
                     <th>Employee Name</th>
                     <th>Salary</th>
                     <th>Department</th>
+                     <th>Joning Date</th>
                     <th>Actions</th>
                     
                 </tr>
+                
             </thead>
-            <tbody></tbody>
+            <tbody>
+            
+            </tbody>
         </table>
         
       
@@ -121,14 +126,7 @@ var employee = {};
 		employee.id = $('#txtId').val();
 	}
 	
-	/* if($('#type').val()=='update'){
-		employee.type = 'update';
-		
-		alert(employee.type);
-	}else{
-		employee.type = 'save';
-		alert(employee.type);
-	} */
+	
 
 
 	$.ajax({
@@ -161,10 +159,11 @@ var employee = {};
  
  /* Clear the data*/
  $('#clearNew').click(function () {
- 		alert("clear");
+ 		
  		$('#empNo').val('');
         $('#empName').val('');
         $('#salary').val('');
+        $('#joiningDate').val('');
  		
  	});
  
@@ -184,7 +183,7 @@ function searchEmployee(){
 	            
 	            tableBody.empty();
 	            $(listData).each(function (index, element) {
-	                tableBody.append('<tr><td>'+element.empNo+'</td><td>'+element.empName+'</td><td>'+element.salary+'</td><td>'+element.department+'</td><td><button onclick = updateEmployee('+element.id+',"'+element.empNo+'","'+element.empName+'","'+element.salary+'","'+element.department+'")>Update</button> | <button onclick = "deleteEmployee('+element.id+')">Delete</button></td></tr>');
+	                tableBody.append('<tr><td>'+element.empNo+'</td><td>'+element.empName+'</td><td>'+element.salary+'</td><td>'+element.department+'</td><td>'+element.joiningDate+'</td><td><button onclick = updateEmployee('+element.id+',"'+element.empNo+'","'+element.empName+'","'+element.salary+'","'+element.department+'","'+element.joiningDate+'")>Update</button> | <button onclick = "deleteEmployee('+element.id+')">Delete</button></td></tr>');
 	            })
 	        },
 	        error: function (error) {
@@ -205,11 +204,14 @@ function getEmployeeList() {
         	console.log(data.emplList);
             var tableBody = $('#tblEmployee tbody');
           var listData=  data.emplList;
+          
+           
+            	tableBody.empty();
+                $(listData).each(function (index, element) {
+                    tableBody.append('<tr><td>'+element.empNo+'</td><td>'+element.empName+'</td><td>'+element.salary+'</td><td>'+element.department+'</td><td>'+element.joiningDate+'</td><td><button onclick = updateEmployee('+element.id+',"'+element.empNo+'","'+element.empName+'","'+element.salary+'","'+element.department+'","'+element.joiningDate+'")>Update</button> | <button onclick = "deleteEmployee('+element.id+')">Delete</button></td></tr>');
+                })
+           
             
-            tableBody.empty();
-            $(listData).each(function (index, element) {
-                tableBody.append('<tr><td>'+element.empNo+'</td><td>'+element.empName+'</td><td>'+element.salary+'</td><td>'+element.department+'</td><td><button onclick = updateEmployee('+element.id+',"'+element.empNo+'","'+element.empName+'","'+element.salary+'","'+element.department+'")>Update</button> | <button onclick = "deleteEmployee('+element.id+')">Delete</button></td></tr>');
-            })
         },
         error: function (error) {
             alert(error);
@@ -234,7 +236,8 @@ function deleteEmployee(id){
 }
 
 /*This function set all available values in the currecponding fields and update the data*/
-function updateEmployee(id,empNo,empName,salary,department){ 
+function updateEmployee(id,empNo,empName,salary,department,joiningDate){ 
+	
 	
 	
 	 $('#empNo').val(empNo);
@@ -242,6 +245,7 @@ function updateEmployee(id,empNo,empName,salary,department){
      $('#txtId').val(id);
      $('#salary').val(salary);
      $('#department').val(department);
+     $('#joiningDate').val(joiningDate);
 }
 	
 		

@@ -38,14 +38,14 @@ public class EmployeeDaoImpl  implements EmployeeDao {
 		        // update
 				
 			 String sql = "UPDATE tbl_employee SET empno=?, empname=?, salary=?, " +
-				  "department=? and joiningDate=? WHERE id=?"; jdbcTemplate.update(sql, empModal.getEmpNo(),
+				  "department=?, joiningdate=? WHERE id=?"; jdbcTemplate.update(sql, empModal.getEmpNo(),
 						  empModal.getEmpName(), empModal.getSalary(), empModal.getDepartment(),empModal.getJoiningDate(),
 						  empModal.getId());
 				 
 		    } else {
 		        // insert
-		        String sql = "INSERT INTO tbl_employee (empno, empname,salary,department,joiningDate)"
-		                    + " VALUES (?, ?, ? ,?)";
+		        String sql = "INSERT INTO tbl_employee (empno, empname,salary,department,joiningdate)"
+		                    + " VALUES (?, ?, ? ,?,?)";
 		        jdbcTemplate.update(sql, empModal.getEmpNo(), empModal.getEmpName(),empModal.getSalary(),empModal.getDepartment(),empModal.getJoiningDate());
 		    }
 		

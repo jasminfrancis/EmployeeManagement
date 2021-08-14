@@ -40,7 +40,6 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
         dataSource.setUrl("jdbc:mysql://localhost:3306/employee_db?useSSL=false");
         dataSource.setUsername("root");
         dataSource.setPassword("Jasmin@123");
-         
         return dataSource;
     }
      

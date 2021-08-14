@@ -38,7 +38,7 @@ public class EmployeeModal implements Serializable {
 	@Column(name = "salary")
 	private int salary;
 	
-	@Column(name = "joniningdate")
+	@Column(name = "joiningdate")
 	private String joiningDate;
 	
 	

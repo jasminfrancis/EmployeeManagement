@@ -16,7 +16,7 @@ public class EmployeeMapper implements RowMapper<EmployeeModal>{
         employee.setEmpName(rs.getString("empName"));
         employee.setSalary(rs.getInt("salary"));
         employee.setDepartment(rs.getString("department"));
-        employee.setJoiningDate(rs.getString("joniningdate"));
+        employee.setJoiningDate(rs.getString("joiningDate"));
         return employee;
 		
 	}
