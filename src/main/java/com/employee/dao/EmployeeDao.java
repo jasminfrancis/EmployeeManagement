@@ -17,4 +17,6 @@ public interface EmployeeDao {
 	
 	EmployeeModal checkExistence(int empNo);
 
+	EmployeeModal findById(int id);
+
 }

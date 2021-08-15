@@ -15,12 +15,6 @@
 
 			<td><input type="hidden" id="txtId" name="txtId" /></td>
 		</tr>
-
-		<tr>
-			<td>Employee Name:</td>
-			<td><input type="text" id="empName" maxlength="100"
-				name="empName" /></td>
-		</tr>
 		<tr>
 			<td>Employee No:</td>
 			<td><input type="text" id="empNo" maxlength="10"
@@ -28,6 +22,12 @@
 				oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength); this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
 				name="empNo" /></td>
 		</tr>
+		<tr>
+			<td>Employee Name:</td>
+			<td><input type="text" id="empName" maxlength="100"
+				name="empName" /></td>
+		</tr>
+		
 		<tr>
 			<td>Date Of joining:</td>
 			<td><input type="text" id="joiningDate" placeholder="dd/MM/yyyy"
@@ -185,7 +185,7 @@ function searchEmployee(){
 	            var tableBody = $('#tblEmployee tbody');
 	            var listData=  data.emplList;
 	            tableBody.empty();
-	            if(listData== undefined ){
+	            if(listData.length==0){
             		tableBody.append('<tr><td colspan="12" style="text-align: center">' +data.responseMessege+' </td></tr>' );
             	}else{
             		 $(listData).each(function (index, element) {	
@@ -213,7 +213,7 @@ function getEmployeeList() {
             var listData=  data.emplList;
             	tableBody.empty();
             	
-            	if(listData== undefined ){
+            	if(listData.length==0){
             		tableBody.append('<tr><td colspan="12" style="text-align: center">' +data.responseMessege+' </td></tr>' );
             	}	
             	else{

@@ -1,4 +1,4 @@
-package com.employee.Constant;
+package com.employee.configuration;
 
 import javax.sql.DataSource;
 

@@ -112,5 +112,11 @@ public EmployeeModal() {
 		this.department = department;
 	}
 	
+	@Override
+	public String toString() {
+		return "id: '" + this.id + "', empNo: '" + this.empNo + "', empName: '" + this.empName + "',department:'"
+				+ this.department + "',salary :'" + this.salary + "',joining date:'"+this.joiningDate+"'";
+	}
+	
 	
 }

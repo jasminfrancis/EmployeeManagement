@@ -93,16 +93,11 @@
     <version>5.1.3.RELEASE</version>
 </dependency>
 
-	<!-- These are the Spring dependencies, you need two 'context' and 'mvc' -->
+	<!--Spring dependencies-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>${org.springframework-version}</version>
-            <!-- 
-            It seems that the Guys at Spring have forsaken Common logging in 
-            favour of SLF4J - not surprising as Commons Logging is notorious
-            for having Class Loader problems (although I've never had any)
-             -->
             <exclusions>
                 <!-- Exclude Commons Logging in favor of SLF4j -->
                 <exclusion>
@@ -116,16 +111,7 @@
             <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-       <!--  <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>5.2.3.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>5.2.3.RELEASE</version>
-		</dependency> -->
+      
         <!-- 
         Logging - this is the SLF4J configuration linking into Log4J 
         -->

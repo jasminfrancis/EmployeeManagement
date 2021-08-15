@@ -1,9 +1,10 @@
+/**
+ * @author Jasmin
+ * Employee related business logics
+ */
 package com.employee.service;
 
-
-
 import java.util.List;
-
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,78 +19,88 @@ import com.employee.Constant.ResponseMessge;
 import com.employee.Modal.EmployeeModal;
 import com.employee.dao.EmployeeDao;
 
-
 @Service("employeeService")
 
 public class EmployeeServiceImpl implements EmployeeService {
 	private static final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
-	
+
 	@Autowired
 	private EmployeeDao employeeDao;
 
-	public JsonData createEmployee(EmployeeModal employee,
-			HttpServletRequest request) {
+	public JsonData createEmployee(EmployeeModal employee, HttpServletRequest request) {
 		log.info("############# Create Employee Data Data {}", employee);
 		JsonData jsonData = new JsonData();
-		boolean duplicate=false;
-			EmployeeModal checkExistence=employeeDao.checkExistence(employee.getEmpNo());
-			if(checkExistence!=null) {
-				if(checkExistence.getId()!=employee.getId()) {
-					duplicate=true;
-				}
+		boolean duplicate = false;
+		EmployeeModal checkExistence = employeeDao.checkExistence(employee.getEmpNo());
+		if (checkExistence != null) {
+			if (checkExistence.getId() != employee.getId()) {
+				duplicate = true;
 			}
-		if(duplicate) {
+		}
+		if (duplicate) {
 			jsonData.setResponseCode(ResponseCode.DUPLICATE);
 			jsonData.setResponseMessege(ResponseMessge.DUPLICATE);
-		}else {
+		} else {
 			employeeDao.createEmployee(employee);
+			log.info("############# Save Success EmployeeServiceImpl  createEmployee()");
 			jsonData.setResponseCode(ResponseCode.SUCESS_MESSAGE);
 			jsonData.setResponseMessege(ResponseMessge.SUCESS_MESSAGE);
 		}
 		return jsonData;
 	}
 
-
-
 	public JsonData employeeList() {
+		log.info("############# employeeList()##########");
 		JsonData jsonData = new JsonData();
-		List<EmployeeModal> empList=employeeDao.employeeList();
-		if(empList.isEmpty()) {
+		List<EmployeeModal> empList = employeeDao.employeeList();
+		if (empList.isEmpty()) {
 			jsonData.setResponseCode(ResponseCode.NOT_FOUND);
 			jsonData.setResponseMessege(ResponseMessge.NOT_FOUND);
-		}else {
+		} else {
 			jsonData.setResponseCode(ResponseCode.SUCESS_MESSAGE);
-			jsonData.setResponseMessege(ResponseMessge.DATA_LIST);
-			jsonData.setEmplList(empList);
-		}	
+			jsonData.setResponseMessege(ResponseMessge.DATA_LIST);		
+			log.info("############# employeeList() data listed##########");
+		}
+		jsonData.setEmplList(empList);
 		return jsonData;
 	}
 
 	public JsonData deleteEmployee(int id) {
+		log.info("############# deleteEmployee()##########" + id);
 		JsonData jsonData = new JsonData();
-		employeeDao.deleteEmployee(id);
-		jsonData.setResponseCode(ResponseCode.SUCESS_MESSAGE);
-		jsonData.setResponseMessege(ResponseMessge.DELETE_RECORD);
+		if (id != 0) {
+			EmployeeModal checkExistence = employeeDao.findById(id);
+			if (checkExistence != null) {
+				employeeDao.deleteEmployee(id);
+				log.info("############# Success deleteEmployee()##########");
+				jsonData.setResponseCode(ResponseCode.SUCESS_MESSAGE);
+				jsonData.setResponseMessege(ResponseMessge.DELETE_RECORD);
+			} else {
+				log.info("############# No record found deleteEmployee()##########" + id);
+				jsonData.setResponseCode(ResponseCode.NOT_FOUND);
+				jsonData.setResponseMessege(ResponseMessge.NOT_FOUND);
+			}
+		} else {
+			jsonData.setResponseCode(ResponseCode.PARTIAL_CONTENT);
+			jsonData.setResponseMessege(ResponseMessge.PARTIAL_CONTENT);
+		}
 		return jsonData;
 	}
-
-
 
 	public JsonData searchEmployee(String searchText) {
 		JsonData jsonData = new JsonData();
-		List<EmployeeModal> empList=employeeDao.searchEmployee(searchText);
-		if(empList.isEmpty()) {
+		log.info("############# searchEmployee()##########" + searchText);
+		List<EmployeeModal> empList = employeeDao.searchEmployee(searchText);
+		if (empList.isEmpty()) {
 			jsonData.setResponseCode(ResponseCode.NOT_FOUND);
 			jsonData.setResponseMessege(ResponseMessge.NOT_FOUND);
-		}else {
+		} else {
 			jsonData.setResponseCode(ResponseCode.SUCESS_MESSAGE);
-			jsonData.setResponseMessege(ResponseMessge.DATA_LIST);
-			jsonData.setEmplList(empList);
-		}	
+			jsonData.setResponseMessege(ResponseMessge.DATA_LIST);	
+			log.info("############# Data listed searchEmployee()##########");
+		}
+		jsonData.setEmplList(empList);
 		return jsonData;
 	}
 
-	
-	
-	
 }

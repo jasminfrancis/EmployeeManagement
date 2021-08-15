@@ -63,10 +63,9 @@ public class EmployeeController {
 	@RequestMapping(value = "/saveEmployee", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String saveEmployee(@RequestBody EmployeeModal employee, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		log.info("-------------");
+		log.info("#########Called  saveEmployee() method########");
 		String encodedResponse = "";
 		ModelAndView mv = new ModelAndView("redirect:/");
-
 		encodedResponse = new String(new Gson()
 				.toJson(employeeService.createEmployee(employee, request))
 				.getBytes("UTF-8"), "ISO-8859-1");
@@ -83,6 +82,7 @@ public class EmployeeController {
 	
 	@RequestMapping(value = "/employeeList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String employeeList() throws Exception {
+		log.info("#########Called  employeeList() method########");
 		String encodedResponse = "";
 		encodedResponse = new String(new Gson().toJson(employeeService.employeeList()).getBytes("UTF-8"), "ISO-8859-1");
 		return encodedResponse;
@@ -97,7 +97,8 @@ public class EmployeeController {
 	 * @throws Exception String
 	 */
 	@RequestMapping(value = "/employeeSearch/{searchText}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody String edit(@PathVariable String searchText) throws Exception {
+	public @ResponseBody String search(@PathVariable String searchText) throws Exception {
+		log.info("#########Called  search() method########");
 		String encodedResponse = "";
 		encodedResponse = new String(new Gson().toJson(employeeService.searchEmployee(searchText)).getBytes("UTF-8"),
 				"ISO-8859-1");
@@ -115,11 +116,10 @@ public class EmployeeController {
 	 */
 	@RequestMapping(value = "/deleteEmployee/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody String delete(@PathVariable int id) throws Exception {
-		System.out.println("id" + id);
+		log.info("#########Called  delete() method########");
 		String encodedResponse = "";
 		encodedResponse = new String(new Gson().toJson(employeeService.deleteEmployee(id)).getBytes("UTF-8"),
 				"ISO-8859-1");
-
 		return encodedResponse;
 	}
 }
